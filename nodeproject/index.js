@@ -46,6 +46,30 @@ app.get('/', (req, res) => {
     res.render('views/firstpage')
 });
 
+// register section
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.get('/register', (req, res) => {
+    res.render('views/register')
+})
+
+// insert values to users table
+app.post('/users',(req,res)=>{
+    console.log(req.body);
+
+    const sql = "insert into users (name,address,email,password) values ('"+req.body.txtname+"','"+req.body.txtaddress+"','"+req.body.txtemail+"','"+req.body.txtpwd+"')";
+
+    db.query(sql,function(err){
+        if(err){
+            throw err;
+        }else{
+            res.send('User registered');
+        }
+    });
+});
+
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
 });
