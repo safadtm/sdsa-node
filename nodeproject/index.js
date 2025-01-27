@@ -70,6 +70,68 @@ app.post('/users',(req,res)=>{
     });
 });
 
+
+var session=require('express-session')
+app.use(session({
+secret:'secret',
+resave:true,
+saveUnintialized:true
+}))
+app.get('/home',(req,res)=>{
+if(req.session.loggedin){
+console.log(req.session)
+res.send('Welcome back.'+req.session.name+'!')
+}
+else{
+res.send('Please login to view this page')
+}
+res.end()
+})
+//login users
+
+app.post('/login',(req,res)=>{
+var username=req.body.txtname;
+var password=req.body.txtpwd;
+if(username&&password){
+db.query("SELECT * FROM users where name='"+req.body.txtname+"'and password='"+req.body.txtpwd+"'",function(error,results,fields){
+if(results.length>0){
+req.session.loggedin=true;
+req.session.name=username;
+if(username=="admin"){
+res.redirect('/getusers')
+}
+else{
+res.render('views/viewusers',{data:results})
+}
+} else {
+res.send('Incorrect username and Password!')
+}
+})
+} else {
+res.send('Please enter Username and Password')
+res.end()
+}
+})
+
+//getusers
+app.get('/getusers',(req,res)=>{
+let sql="SELECT * FROM users"
+
+let query=db.query(sql,(err,results)=>{
+
+if(err){
+throw err
+}
+else if(req.session.loggedin){
+res.render('views/viewadmin',{data:results})
+}
+else{
+res.send('Please login to view this page')
+}
+})
+})
+
+
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
 });
