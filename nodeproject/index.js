@@ -131,6 +131,40 @@ res.send('Please login to view this page')
 })
 })
 
+//edit users
+app.get('/edit/:id',(req,res)=>{
+    let sql=`SELECT * FROM users where id=${req.params.id}`
+    let query=db.query(sql,(err,results)=>{
+    if(err){
+    throw err
+    }
+    res.render('views/edit',{data:results})
+    })
+    
+    })
+    
+    //update user
+    app.post('/updateuser/:id',(req,res)=>{
+    let id=req.params.id;
+    var sql="UPDATE users SET name='"+req.body.txtname+"',address='"+req.body.txtaddress+"',email='"+req.body.txtema
+    il+"' where id='"+id+"'"
+    let query=db.query(sql, (err)=>{
+    if(err){
+    throw err
+    }
+    res.send("User Updated")
+    })
+    })
+
+    //delete user
+app.get('/deleteuser/:id',(req,res)=>{
+    let sql=`DELETE FROM users WHERE id=${req.params.id}`
+    let query=db.query(sql,(err,results)=>{
+    if(err)
+    {throw err}
+    res.send("user Deleted")
+    })
+    })
 
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
