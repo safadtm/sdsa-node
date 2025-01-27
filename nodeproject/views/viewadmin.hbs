@@ -1,0 +1,30 @@
+<html>
+<head>
+<title> Handlers Demo</title>
+</head>
+<body>
+<table>
+<tr>
+<th>#ID</th>
+<th>Name</th>
+<th>Address</th>
+<th>Email</th>
+</tr>
+{{#each data}}
+<tr>
+<td>{{this.id}}</td>
+<td>{{this.name}}</td>
+<td>{{this.address}}</td>
+<td>{{this.email}}</td>
+
+<td><form action="edit/{{this.id}}" method="GET">
+<input type="submit" value="Edit"></form>
+</td>
+<td><form action="deleteuser/{{this.id}}" method="GET">
+<input type="submit" value="Delete"></form>
+</td>
+</tr>
+{{/each}}
+</table>
+</body>
+</html>
