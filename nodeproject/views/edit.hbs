@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Edit</title>
+</head>
+<body>
+{{#each data}}
+<form action="/updateuser/{{this.id}}" method="POST">
+<table align="center">
+<tr>
+<td colspan='2' align="center">Register</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>{{this.id}}</td>
+</tr>
+<tr>
+
+<td>Username</td>
+<td><input type="text" name="txtname" value="{{this.id}}"></td>
+</tr>
+<tr>
+<td>Address</td>
+<td><input type="text" name="txtaddress" value="{{this.address}}"></td>
+</tr>
+<tr>
+<td>Email</td>
+<td><input type="text" name="txtemail" value="{{this.email}}"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" name="btnsubmit" value="submit"></td>
+</tr>
+{{/each}}
+</table>
+</form>
+</body>
+</html>
