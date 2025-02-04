@@ -146,8 +146,7 @@ app.get('/edit/:id',(req,res)=>{
     //update user
     app.post('/updateuser/:id',(req,res)=>{
     let id=req.params.id;
-    var sql="UPDATE users SET name='"+req.body.txtname+"',address='"+req.body.txtaddress+"',email='"+req.body.txtema
-    il+"' where id='"+id+"'"
+    var sql="UPDATE users SET name='"+req.body.txtname+"',address='"+req.body.txtaddress+"',email='"+req.body.txtemail+"' where id='"+id+"'"
     let query=db.query(sql, (err)=>{
     if(err){
     throw err
